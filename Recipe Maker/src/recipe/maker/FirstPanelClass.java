@@ -22,9 +22,12 @@ public class FirstPanelClass extends JPanel{
     
     // Swing variables
     private final JPanel onePaneName, onePaneMain;
+    private final JButton exampleButton;
+    private final CardsPanel c;
     
-    public FirstPanelClass(){
-        
+    public FirstPanelClass(CardsPanel cl){
+        // This lets us change cards
+        c = cl;
         setLayout(new BorderLayout());
         
         // PANELS
@@ -39,8 +42,20 @@ public class FirstPanelClass extends JPanel{
             onePaneMain.setPreferredSize(new Dimension(SUM_WIDTH, MAIN_PANEL_HEIGHT));
         add(onePaneMain, BorderLayout.CENTER);
         
+        // BUTTONS
         
+        exampleButton = new JButton("Go to 2nd panel");
+        exampleButton.addActionListener(new buttonListener());
+        onePaneMain.add(exampleButton);
         
+    }
+    
+    class buttonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            CardLayout cl = (CardLayout)(c.getLayout());
+              cl.show(c, "secondPanel");
+        }
     }
     
     

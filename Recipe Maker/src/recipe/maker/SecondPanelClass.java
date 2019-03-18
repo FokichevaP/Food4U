@@ -25,9 +25,12 @@ public class SecondPanelClass extends JPanel{
     
     // Swing variables
     private final JPanel twoPanName, twoPanIngr, twoPanRec;
-    private final JButton enterBut;
+    private final JButton exampleButton;
+    private final CardsPanel c;
     
-    public SecondPanelClass(){
+    public SecondPanelClass(CardsPanel cl){
+        // This lets us change cards
+        c = cl;
         setLayout(new BorderLayout());
         
         // PANELS
@@ -47,8 +50,17 @@ public class SecondPanelClass extends JPanel{
         add(twoPanRec, BorderLayout.PAGE_START);  
         
         // BUTTONS
-        enterBut = new JButton("Go to panel 2");
-        add(enterBut);
+        
+        exampleButton = new JButton("Go to 1st panel");
+        exampleButton.addActionListener(new buttonListener());
+        twoPanRec.add(exampleButton);
     }
     
+    class buttonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            CardLayout cl = (CardLayout)(c.getLayout());
+              cl.show(c, "firstPanel");
+        }
+    }
 }

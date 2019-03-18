@@ -20,7 +20,7 @@ public class RecipeMaker extends JFrame{
     
     
     // Swing variables
-    private final JPanel cards;
+    private final CardsPanel cards;
     
     
     public RecipeMaker(){
@@ -28,7 +28,8 @@ public class RecipeMaker extends JFrame{
         setLayout(new BorderLayout());
         // Change later to fill whole screen
         // JPanels
-        CardsPanel cards = new CardsPanel();
+        cards = new CardsPanel();
+        add(cards);
         
         
         

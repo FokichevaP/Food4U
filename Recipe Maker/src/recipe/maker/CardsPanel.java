@@ -15,11 +15,11 @@ public class CardsPanel extends JPanel{
     public CardsPanel(){
         setLayout(new CardLayout());
         // Panel 1
-        FirstPanelClass onePan = new FirstPanelClass();
+        FirstPanelClass onePan = new FirstPanelClass(this);
         add(onePan, "firstPanel"); 
         
         // Panel 2
-        SecondPanelClass twoPan = new SecondPanelClass();
+        SecondPanelClass twoPan = new SecondPanelClass(this);
         add(twoPan, "secondPanel");
     }
 }
