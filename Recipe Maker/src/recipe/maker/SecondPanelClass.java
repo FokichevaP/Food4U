@@ -10,6 +10,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import java.util.ArrayList;
 
 public class SecondPanelClass extends JPanel{
     
@@ -24,9 +25,15 @@ public class SecondPanelClass extends JPanel{
     
     
     // Swing variables
-    private final JPanel twoPanName, twoPanIngr, twoPanRec;
-    private final JButton exampleButton;
+    private final JPanel namePan, ingrPan, recPan, ingrPanList, ingrPanAdd;
+    private final JScrollPane ingrScroll;
+    private final JButton addButton;
     private final CardsPanel c;
+    private final JLabel ingrLabel, addLabel;
+    
+    
+    // Ingredent Array List
+    ArrayList<Ingredient> ingredientArray = new ArrayList<Ingredient>();
     
     public SecondPanelClass(CardsPanel cl){
         // This lets us change cards
@@ -34,33 +41,111 @@ public class SecondPanelClass extends JPanel{
         setLayout(new BorderLayout());
         
         // PANELS
-        twoPanName = new JPanel();
-            twoPanName.setBorder(new TitledBorder(new EtchedBorder(), "Name Panel"));
-            twoPanName.setPreferredSize(new Dimension(SUM_WIDTH, NAME_PANEL_HEIGHT));
-        add(twoPanName, BorderLayout.PAGE_START);  
-            
-        twoPanIngr = new JPanel();
-            twoPanIngr.setBorder(new TitledBorder(new EtchedBorder(), "Ingredients Panel"));
-            twoPanName.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
-        add(twoPanName, BorderLayout.PAGE_START);  
+        ingrPan = new JPanel();
+            ingrPan.setLayout(new BoxLayout(ingrPan, BoxLayout.Y_AXIS));
+            ingrPan.setBorder(new TitledBorder(new EtchedBorder(), "Ingredients Panel"));
+            ingrPan.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
+            ingrScroll = new JScrollPane(ingrPan);
+            //ingrScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        add(ingrScroll, BorderLayout.WEST);  
         
-        twoPanRec = new JPanel();
-            twoPanRec.setBorder(new TitledBorder(new EtchedBorder(), "Recipes Panel"));
-            twoPanRec.setPreferredSize(new Dimension(REC_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
-        add(twoPanRec, BorderLayout.PAGE_START);  
+        recPan = new JPanel(new GridBagLayout());
+            recPan.setBorder(new TitledBorder(new EtchedBorder(), "Recipes Panel"));
+            recPan.setPreferredSize(new Dimension(REC_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
+        add(recPan, BorderLayout.CENTER);  
         
-        // BUTTONS
+        //
+        // INGREDIENT PANEL WIDGETS
+        //
         
-        exampleButton = new JButton("Go to 1st panel");
-        exampleButton.addActionListener(new buttonListener());
-        twoPanRec.add(exampleButton);
+        // Top Panel
+        ingrPanList = new JPanel(new GridBagLayout());
+        ingrPanList.setBackground(new Color(200, 0, 0));
+        ingrPan.add(ingrPanList);
+        // GridBagLayout One
+        GridBagConstraints c = new GridBagConstraints();
+        // Ingredient Label
+        ingrLabel = new JLabel("Ingredients");
+            Font ingrFont = new Font("Courier", Font.BOLD, 20);
+            ingrLabel.setFont(ingrFont);
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 5;
+            c.gridx = 0;
+            c.gridy = 0; 
+        ingrPanList.add(ingrLabel, c);
+        // Ingredient ArrayList
+        ingredientArray.add(new Ingredient(1));
+        ingredientArray.add(new Ingredient(2));
+        ingredientArray.add(new Ingredient(3));
+        // Display all ingredient fields
+        displayAll();
+        
+        // Bottom Panel
+        ingrPanAdd = new JPanel(new GridBagLayout());
+        ingrPanAdd.setBackground(new Color(0, 200, 0));
+        ingrPan.add(ingrPanAdd);
+        // Add Button
+        addButton = new JButton("+");
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 1;
+            c.gridx = 0;
+            c.gridy = ingredientArray.size() + 1; 
+            addButton.addActionListener(new addIngredients());
+        ingrPanAdd.add(addButton, c);
+        // Label
+        addLabel = new JLabel("add ingredient");
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 4;
+            c.gridx = 1;
+            c.gridy = ingredientArray.size() + 1; 
+        ingrPanAdd.add(addLabel, c);
+        
+        
+             
+        //
+        // RECIPE PANEL WIDGETS
+        //
+                
+        // PANELS
+        namePan = new JPanel();
+            namePan.setBorder(new TitledBorder(new EtchedBorder(), "Name Panel"));
+            namePan.setPreferredSize(new Dimension(SUM_WIDTH, NAME_PANEL_HEIGHT));
+            c.gridx = 0;
+            c.gridy = 0;
+            c.fill = GridBagConstraints.HORIZONTAL;
+        recPan.add(namePan, c);
     }
     
-    class buttonListener implements ActionListener{
+    class switchCards implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
             CardLayout cl = (CardLayout)(c.getLayout());
               cl.show(c, "firstPanel");
+        }
+    }
+    
+    
+    public void displayAll(){
+        int i = 1;
+        GridBagConstraints c = new GridBagConstraints();
+        for (Ingredient ingr : ingredientArray){
+            c.gridx = 0;
+            c.gridy = i;
+            c.gridwidth = 5;
+            c.fill = GridBagConstraints.HORIZONTAL;
+            ingrPanList.add(ingr, c);
+            i++;
+        }
+        ingrPanList.revalidate();
+        ingrPanList.repaint();
+    }
+    
+    class addIngredients implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            ingredientArray.add(new Ingredient(ingredientArray.size() + 1));
+            displayAll();
+            System.out.println(ingredientArray.size());
         }
     }
 }
