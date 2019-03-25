@@ -33,7 +33,7 @@ public class SecondPanelClass extends JPanel{
     
     
     // Ingredent Array List
-    ArrayList<Ingredient> ingredientArray = new ArrayList<Ingredient>();
+    ArrayList<IngredientPanel> ingredientArray = new ArrayList<IngredientPanel>();
     
     public SecondPanelClass(CardsPanel cl){
         // This lets us change cards
@@ -74,9 +74,9 @@ public class SecondPanelClass extends JPanel{
             c.gridy = 0; 
         ingrPanList.add(ingrLabel, c);
         // Ingredient ArrayList
-        ingredientArray.add(new Ingredient(1));
-        ingredientArray.add(new Ingredient(2));
-        ingredientArray.add(new Ingredient(3));
+        ingredientArray.add(new IngredientPanel(1));
+        ingredientArray.add(new IngredientPanel(2));
+        ingredientArray.add(new IngredientPanel(3));
         // Display all ingredient fields
         displayAll();
         
@@ -128,7 +128,7 @@ public class SecondPanelClass extends JPanel{
     public void displayAll(){
         int i = 1;
         GridBagConstraints c = new GridBagConstraints();
-        for (Ingredient ingr : ingredientArray){
+        for (IngredientPanel ingr : ingredientArray){
             c.gridx = 0;
             c.gridy = i;
             c.gridwidth = 5;
@@ -143,7 +143,7 @@ public class SecondPanelClass extends JPanel{
     class addIngredients implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            ingredientArray.add(new Ingredient(ingredientArray.size() + 1));
+            ingredientArray.add(new IngredientPanel(ingredientArray.size() + 1));
             displayAll();
             System.out.println(ingredientArray.size());
         }
