@@ -10,7 +10,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class SecondPanelClass extends JPanel{
     
@@ -32,8 +33,8 @@ public class SecondPanelClass extends JPanel{
     private final JLabel ingrLabel, addLabel;
     
     
-    // Ingredent Array List
-    ArrayList<IngredientPanel> ingredientArray = new ArrayList<IngredientPanel>();
+    // Ingredent Linked List
+    LinkedList<IngredientPanel> ingredientList = new LinkedList<IngredientPanel>();
     
     public SecondPanelClass(CardsPanel cl){
         // This lets us change cards
@@ -73,10 +74,10 @@ public class SecondPanelClass extends JPanel{
             c.gridx = 0;
             c.gridy = 0; 
         ingrPanList.add(ingrLabel, c);
-        // Ingredient ArrayList
-        ingredientArray.add(new IngredientPanel(1));
-        ingredientArray.add(new IngredientPanel(2));
-        ingredientArray.add(new IngredientPanel(3));
+        // Ingredient LinkedList
+        ingredientList.add(new IngredientPanel(1));
+        ingredientList.add(new IngredientPanel(2));
+        ingredientList.add(new IngredientPanel(3));
         // Display all ingredient fields
         displayAll();
         
@@ -89,7 +90,7 @@ public class SecondPanelClass extends JPanel{
             c.fill = GridBagConstraints.HORIZONTAL;
             c.gridwidth = 1;
             c.gridx = 0;
-            c.gridy = ingredientArray.size() + 1; 
+            c.gridy = ingredientList.size() + 1; 
             addButton.addActionListener(new addIngredients());
         ingrPanAdd.add(addButton, c);
         // Label
@@ -97,7 +98,7 @@ public class SecondPanelClass extends JPanel{
             c.fill = GridBagConstraints.HORIZONTAL;
             c.gridwidth = 4;
             c.gridx = 1;
-            c.gridy = ingredientArray.size() + 1; 
+            c.gridy = ingredientList.size() + 1; 
         ingrPanAdd.add(addLabel, c);
         
         
@@ -128,7 +129,7 @@ public class SecondPanelClass extends JPanel{
     public void displayAll(){
         int i = 1;
         GridBagConstraints c = new GridBagConstraints();
-        for (IngredientPanel ingr : ingredientArray){
+        for (IngredientPanel ingr : ingredientList){
             c.gridx = 0;
             c.gridy = i;
             c.gridwidth = 5;
@@ -143,9 +144,15 @@ public class SecondPanelClass extends JPanel{
     class addIngredients implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            ingredientArray.add(new IngredientPanel(ingredientArray.size() + 1));
-            displayAll();
-            System.out.println(ingredientArray.size());
+            if(ingredientList.size()<10){
+                ingredientList.add(new IngredientPanel(ingredientList.size() + 1));
+                displayAll();
+                System.out.println(ingredientList.size());
+            }
+            else{
+                showMessageDialog(null, "Maximum number of ingredients has been reached.");
+            }
+            
         }
     }
 }
