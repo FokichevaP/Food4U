@@ -14,15 +14,21 @@ import javax.swing.border.TitledBorder;
 public class FirstPanelClass extends JPanel{
     
      // Dimension variables
-    private final int SUM_WIDTH = 1600;
-    private final int SUM_HEIGHT = 900;
+    private final int INITIAL_WIDTH = 1600;
+    private final int INITIAL_HEIGHT = 900;
     // 1st panel
-    private final int NAME_PANEL_HEIGHT = SUM_HEIGHT/10;
-    private final int MAIN_PANEL_HEIGHT = SUM_HEIGHT*9/10;
+    private final int NAME_PANEL_HEIGHT = INITIAL_HEIGHT/10;
+    private final int MAIN_PANEL_HEIGHT = INITIAL_HEIGHT*9/10;
+    
+    //Colours
+    public static Color DarkGrey = new Color(99,99,99);
+    public static Color LightGrey = new Color(200,200,200);
+    public static Color DarkOrange = new Color(244, 152, 66);
     
     // Swing variables
-    private final JPanel onePaneName, onePaneMain;
-    private final JButton exampleButton;
+    private final JPanel namePan, mainPan;
+    private final JButton exButton;
+    private final JLabel nameLabel;
     private final CardsPanel c;
     
     public FirstPanelClass(CardsPanel cl){
@@ -30,23 +36,29 @@ public class FirstPanelClass extends JPanel{
         c = cl;
         setLayout(new BorderLayout());
         
-        // PANELS
+        // NAME PANEL
+        namePan = new JPanel();
+            namePan.setBackground(DarkGrey);
+            namePan.setPreferredSize(new Dimension(INITIAL_WIDTH, NAME_PANEL_HEIGHT));
+        add(namePan, BorderLayout.PAGE_START);  
+        // Name Label
+        nameLabel = new JLabel();
+            nameLabel.setText("Insert Ingredients");
+            nameLabel.setFont(new Font("Sans Serif", Font.PLAIN, 40));
+        namePan.add(nameLabel, BorderLayout.CENTER);
         
-        onePaneName = new JPanel();
-            onePaneName.setBorder(new TitledBorder(new EtchedBorder(), "Name Panel"));
-            onePaneName.setPreferredSize(new Dimension(SUM_WIDTH, NAME_PANEL_HEIGHT));
-        add(onePaneName, BorderLayout.PAGE_START);  
+        // MAIN PANEL
+        mainPan = new JPanel();
+            mainPan.setPreferredSize(new Dimension(INITIAL_WIDTH, MAIN_PANEL_HEIGHT));
+            mainPan.setMinimumSize(new Dimension(INITIAL_WIDTH, MAIN_PANEL_HEIGHT));
+            mainPan.setBackground(LightGrey);
+        add(mainPan, BorderLayout.CENTER);
         
-        onePaneMain = new JPanel();
-            onePaneMain.setBorder(new TitledBorder(new EtchedBorder(), "Main Panel"));
-            onePaneMain.setPreferredSize(new Dimension(SUM_WIDTH, MAIN_PANEL_HEIGHT));
-        add(onePaneMain, BorderLayout.CENTER);
         
-        // BUTTONS
         
-        exampleButton = new JButton("Go to 2nd panel");
-        exampleButton.addActionListener(new buttonListener());
-        onePaneMain.add(exampleButton);
+        exButton = new JButton("Submit");
+        exButton.addActionListener(new buttonListener());
+        mainPan.add(exButton);
         
     }
     

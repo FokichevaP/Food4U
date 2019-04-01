@@ -15,6 +15,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class SecondPanelClass extends JPanel{
     
+    // Ingredent Linked List
+    LinkedList<IngredientPanel> ingredientList = new LinkedList<IngredientPanel>();
+    
     // Dimension variables
     private final int SUM_WIDTH = 1600;
     private final int SUM_HEIGHT = 900;
@@ -24,6 +27,10 @@ public class SecondPanelClass extends JPanel{
     private final int INGR_PANEL_WIDTH = SUM_WIDTH*2/10;
     private final int REC_PANEL_WIDTH = SUM_WIDTH*8/10;
     
+    //Colours
+    public static Color DarkGrey = new Color(99,99,99);
+    public static Color LightGrey = new Color(200,200,200);
+    public static Color DarkOrange = new Color(244, 152, 66);
     
     // Swing variables
     private final JPanel namePan, ingrPan, recPan, ingrPanList, ingrPanAdd;
@@ -33,9 +40,6 @@ public class SecondPanelClass extends JPanel{
     private final JLabel ingrLabel, addLabel;
     
     
-    // Ingredent Linked List
-    LinkedList<IngredientPanel> ingredientList = new LinkedList<IngredientPanel>();
-    
     public SecondPanelClass(CardsPanel cl){
         // This lets us change cards
         c = cl;
@@ -43,14 +47,13 @@ public class SecondPanelClass extends JPanel{
         
         // PANELS
         ingrPan = new JPanel();
-            ingrPan.setLayout(new BoxLayout(ingrPan, BoxLayout.Y_AXIS));
+            ingrPan.setLayout(new BorderLayout());
             ingrPan.setBorder(new TitledBorder(new EtchedBorder(), "Ingredients Panel"));
             ingrPan.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
             ingrScroll = new JScrollPane(ingrPan);
-            //ingrScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(ingrScroll, BorderLayout.WEST);  
         
-        recPan = new JPanel(new GridBagLayout());
+        recPan = new JPanel(new BorderLayout());
             recPan.setBorder(new TitledBorder(new EtchedBorder(), "Recipes Panel"));
             recPan.setPreferredSize(new Dimension(REC_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
         add(recPan, BorderLayout.CENTER);  
@@ -60,20 +63,15 @@ public class SecondPanelClass extends JPanel{
         //
         
         // Top Panel
-        ingrPanList = new JPanel(new GridBagLayout());
+        ingrPanList = new JPanel(new BorderLayout());
+        ingrPanList.setPreferredSize(new Dimension(400, 400));
         ingrPanList.setBackground(new Color(200, 0, 0));
         ingrPan.add(ingrPanList);
-        // GridBagLayout One
-        GridBagConstraints c = new GridBagConstraints();
         // Ingredient Label
         ingrLabel = new JLabel("Ingredients");
             Font ingrFont = new Font("Courier", Font.BOLD, 20);
             ingrLabel.setFont(ingrFont);
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.gridwidth = 5;
-            c.gridx = 0;
-            c.gridy = 0; 
-        ingrPanList.add(ingrLabel, c);
+        ingrPanList.add(ingrLabel);
         // Ingredient LinkedList
         ingredientList.add(new IngredientPanel(1));
         ingredientList.add(new IngredientPanel(2));
@@ -82,24 +80,16 @@ public class SecondPanelClass extends JPanel{
         displayAll();
         
         // Bottom Panel
-        ingrPanAdd = new JPanel(new GridBagLayout());
+        ingrPanAdd = new JPanel(new BorderLayout());
         ingrPanAdd.setBackground(new Color(0, 200, 0));
         ingrPan.add(ingrPanAdd);
         // Add Button
         addButton = new JButton("+");
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.gridwidth = 1;
-            c.gridx = 0;
-            c.gridy = ingredientList.size() + 1; 
             addButton.addActionListener(new addIngredients());
-        ingrPanAdd.add(addButton, c);
+        ingrPanAdd.add(addButton);
         // Label
         addLabel = new JLabel("add ingredient");
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.gridwidth = 4;
-            c.gridx = 1;
-            c.gridy = ingredientList.size() + 1; 
-        ingrPanAdd.add(addLabel, c);
+        ingrPanAdd.add(addLabel);
         
         
              
@@ -111,10 +101,7 @@ public class SecondPanelClass extends JPanel{
         namePan = new JPanel();
             namePan.setBorder(new TitledBorder(new EtchedBorder(), "Name Panel"));
             namePan.setPreferredSize(new Dimension(SUM_WIDTH, NAME_PANEL_HEIGHT));
-            c.gridx = 0;
-            c.gridy = 0;
-            c.fill = GridBagConstraints.HORIZONTAL;
-        recPan.add(namePan, c);
+        recPan.add(namePan);
     }
     
     class switchCards implements ActionListener{
@@ -130,11 +117,7 @@ public class SecondPanelClass extends JPanel{
         int i = 1;
         GridBagConstraints c = new GridBagConstraints();
         for (IngredientPanel ingr : ingredientList){
-            c.gridx = 0;
-            c.gridy = i;
-            c.gridwidth = 5;
-            c.fill = GridBagConstraints.HORIZONTAL;
-            ingrPanList.add(ingr, c);
+            ingrPanList.add(ingr);
             i++;
         }
         ingrPanList.revalidate();

@@ -15,7 +15,7 @@ public class AddIngredientsClass extends JFrame{
     
     public static LinkedList<Ingredient> IngredientList = new LinkedList<>();
     
-    JLabel JNameLabel, JRequiredText;
+    public JLabel JNameLabel, JRequiredText;
     public static JFrame Window;
     private JPanel MainPanel, NamePanel, RequiredPanel;
     public static JPanel AddIngredientsOuterPanel;

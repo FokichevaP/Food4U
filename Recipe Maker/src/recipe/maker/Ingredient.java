@@ -11,54 +11,32 @@ import javax.swing.JTextField;
 
 public class Ingredient {
     
-    private boolean Required;
-    private String IngredientName = "";
-    public JPanel IngredientPanel;
-    private Ingredient Self;
+    private boolean required;
+    private String ingredientName = "";
+    public JPanel ingredientPanel;
+    private Ingredient self;
     
     //Layout initialisation
     JTextField ingredientNameTextField;
     
-    class NameListener implements ActionListener
-        {
-            @Override
-            public void actionPerformed(ActionEvent event)
-            {
-                IngredientName = ingredientNameTextField.getText();
-            }
-        }
-    
-    class DeleteButtonListener implements ActionListener
-        {
-            @Override
-            public void actionPerformed(ActionEvent event)
-            {
-                AddIngredientsClass.IngredientList.remove(Self);
-                AddIngredientsClass.AddIngredientsOuterPanel.remove(IngredientPanel);
-                
-                AddIngredientsClass.Window.repaint();
-                AddIngredientsClass.Window.setVisible(true);
-            }
-        }
-    
     Ingredient(JPanel TargetJP){
-        Self=this;
+        self=this;
         //Ingredient panel
-        IngredientPanel = new JPanel();
-        IngredientPanel.setPreferredSize(new Dimension(800, 40));
+        ingredientPanel = new JPanel();
+        ingredientPanel.setPreferredSize(new Dimension(800, 40));
         //GridLayout GridLayout = new GridLayout(1,1);
         //IngredientPanel.setLayout(GridLayout);
-        TargetJP.add(IngredientPanel);
+        TargetJP.add(ingredientPanel);
         
         //Ingredient Name
         ingredientNameTextField = new JTextField();
         ingredientNameTextField.setPreferredSize(new Dimension(120, 30));
         ingredientNameTextField.setToolTipText("Ingredient Name");
-        IngredientPanel.add(ingredientNameTextField);
+        ingredientPanel.add(ingredientNameTextField);
         
         //Required Panel
         JPanel RequiredPanel = new JPanel();
-        IngredientPanel.add(RequiredPanel);
+        ingredientPanel.add(RequiredPanel);
         
         //Ingredient RequiredText
         JLabel JRequiredText = new JLabel("Required: ");
@@ -72,7 +50,7 @@ public class Ingredient {
         JButton deleteButton = new JButton("X");
         deleteButton.setBackground(AddIngredientsClass.DarkOrange);
         deleteButton.setPreferredSize(new Dimension(50, 30));
-        IngredientPanel.add(deleteButton);
+        ingredientPanel.add(deleteButton);
         
         //Add Events
         ingredientNameTextField.addActionListener(new NameListener());
@@ -81,11 +59,33 @@ public class Ingredient {
         AddIngredientsClass.IngredientList.add(this);
     }
     
+    class NameListener implements ActionListener
+        {
+            @Override
+            public void actionPerformed(ActionEvent event)
+            {
+                ingredientName = ingredientNameTextField.getText();
+            }
+        }
+    
+    class DeleteButtonListener implements ActionListener
+        {
+            @Override
+            public void actionPerformed(ActionEvent event)
+            {
+                AddIngredientsClass.IngredientList.remove(self);
+                AddIngredientsClass.AddIngredientsOuterPanel.remove(ingredientPanel);
+                
+                AddIngredientsClass.Window.repaint();
+                AddIngredientsClass.Window.setVisible(true);
+            }
+        }
+    
     public Boolean getRequired(){
-        return Required;
+        return required;
     }
     
     public String getIngredientName(){
-        return IngredientName;
+        return ingredientName;
     }
 }
