@@ -17,7 +17,7 @@ public class CardsPanel extends JPanel{
         
         // Panel 1
         FirstPanelClass onePan = new FirstPanelClass(this);
-        add(onePan, "firstPanel"); 
+        //add(onePan, "firstPanel"); 
         
         // Panel 2
         SecondPanelClass twoPan = new SecondPanelClass(this);

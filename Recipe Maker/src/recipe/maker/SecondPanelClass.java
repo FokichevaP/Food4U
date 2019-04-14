@@ -17,6 +17,7 @@ public class SecondPanelClass extends JPanel{
     
     // Ingredent Linked List
     LinkedList<IngredientPanel> ingredientList = new LinkedList<IngredientPanel>();
+    Ingredient ingredient;
     
     // Dimension variables
     private final int SUM_WIDTH = 1600;
@@ -34,7 +35,6 @@ public class SecondPanelClass extends JPanel{
     
     // Swing variables
     private final JPanel namePan, ingrPan, recPan, ingrPanList, ingrPanAdd;
-    private final JScrollPane ingrScroll;
     private final JButton addButton;
     private final CardsPanel c;
     private final JLabel ingrLabel, addLabel;
@@ -50,8 +50,7 @@ public class SecondPanelClass extends JPanel{
             ingrPan.setLayout(new BorderLayout());
             ingrPan.setBorder(new TitledBorder(new EtchedBorder(), "Ingredients Panel"));
             ingrPan.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
-            ingrScroll = new JScrollPane(ingrPan);
-        add(ingrScroll, BorderLayout.WEST);  
+        add(ingrPan, BorderLayout.WEST);  
         
         recPan = new JPanel(new BorderLayout());
             recPan.setBorder(new TitledBorder(new EtchedBorder(), "Recipes Panel"));
@@ -72,17 +71,13 @@ public class SecondPanelClass extends JPanel{
             Font ingrFont = new Font("Courier", Font.BOLD, 20);
             ingrLabel.setFont(ingrFont);
         ingrPanList.add(ingrLabel);
-        // Ingredient LinkedList
-        ingredientList.add(new IngredientPanel(1));
-        ingredientList.add(new IngredientPanel(2));
-        ingredientList.add(new IngredientPanel(3));
-        // Display all ingredient fields
-        displayAll();
+        // Ingredients
+        ingredient = new Ingredient(ingrPanList);
         
         // Bottom Panel
         ingrPanAdd = new JPanel(new BorderLayout());
         ingrPanAdd.setBackground(new Color(0, 200, 0));
-        ingrPan.add(ingrPanAdd);
+        //ingrPan.add(ingrPanAdd);
         // Add Button
         addButton = new JButton("+");
             addButton.addActionListener(new addIngredients());
