@@ -16,8 +16,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class SecondPanelClass extends JPanel{
     
     // Ingredent Linked List
-    LinkedList<IngredientPanel> ingredientList = new LinkedList<IngredientPanel>();
-    Ingredient ingredient;
+    //Ingredient ingredient;
     
     // Dimension variables
     private final int SUM_WIDTH = 1600;

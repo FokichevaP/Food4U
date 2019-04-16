@@ -15,7 +15,7 @@ import javax.swing.border.TitledBorder;
 public class FirstPanelClass extends JPanel{
     
     // Ingredent Linked List
-    LinkedList<IngredientPanel> ingredientList = new LinkedList<IngredientPanel>();
+    public static LinkedList<Ingredient> ingredientList = new LinkedList<>();
     Ingredient ingredient;
     
      // Dimension variables
@@ -34,8 +34,10 @@ public class FirstPanelClass extends JPanel{
     public static Color LightOrange = new Color(252, 220, 159);
     
     // Swing variables
-    private final JPanel namePan, ingrPan, ingrPanTop, ingrPanBot;
-    private final JButton addButton, resetButton, submitButton, settingsButton;
+    private final JPanel namePan, ingrPanBot;
+    public static JPanel ingrPan, ingrPanTop;
+    private final JButton resetButton, submitButton, settingsButton;
+    public static JButton addButton;
     private final JLabel ingrLabel;
     private final CardsPanel c;
     
@@ -58,7 +60,6 @@ public class FirstPanelClass extends JPanel{
         // MAIN PANEL
         ingrPan = new JPanel();
             ingrPan.setPreferredSize(new Dimension(SUM_WIDTH, MAIN_PANEL_HEIGHT));
-            ingrPan.setMinimumSize(new Dimension(SUM_WIDTH, MAIN_PANEL_HEIGHT));
             ingrPan.setBackground(LightGrey);
         add(ingrPan, BorderLayout.CENTER);
         
@@ -66,7 +67,7 @@ public class FirstPanelClass extends JPanel{
         ingrPanTop = new JPanel();
             ingrPanTop.setPreferredSize(new Dimension(400, 400));
             ingrPanTop.setBackground(LightGrey);
-        ingrPan.add(ingrPanTop, BorderLayout.CENTER);
+        ingrPan.add(ingrPanTop, BorderLayout.NORTH);
         // Ingredients
         ingredient = new Ingredient(ingrPanTop);
         ingredient = new Ingredient(ingrPanTop);
@@ -75,6 +76,7 @@ public class FirstPanelClass extends JPanel{
         addButton = new JButton("+");
             addButton.setBackground(DarkOrange);
             addButton.setPreferredSize(new Dimension(50, 50));
+            addButton.addActionListener(new addButtonListener());
         ingrPanTop.add(addButton);
         
         // Bottom Panel
@@ -90,10 +92,10 @@ public class FirstPanelClass extends JPanel{
         submitButton = new JButton("Submit");
             submitButton.setBackground(DarkOrange);
             submitButton.setPreferredSize(new Dimension(90, 50));
-            submitButton.addActionListener(new buttonListener());
+            submitButton.addActionListener(new submitButtonListener());
         //Group above buttons together in another panel
         JPanel ingrPanButtons = new JPanel();
-        ingrPanButtons.setOpaque(false);
+        //ingrPanButtons.setOpaque(false);
             ingrPanButtons.add(resetButton);
             ingrPanButtons.add(submitButton);
         ingrPanBot.add(ingrPanButtons);
@@ -108,13 +110,29 @@ public class FirstPanelClass extends JPanel{
         
     }
     
-    class buttonListener implements ActionListener{
+    class submitButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
             CardLayout cl = (CardLayout)(c.getLayout());
-              cl.show(c, "secondPanel");
+            cl.show(c, "secondPanel");
+            //Fixing the issue of ingredients being doubled when submit button is pressed:
+            
+            //TO DO: implement Ryan's code to show recepies
         }
     }
+    
+    class addButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            ingrPanTop.remove(addButton);
+            ingredient = new Ingredient(ingrPanTop);
+            ingrPanTop.add(addButton);
+            ingrPanTop.revalidate();
+            ingrPanTop.repaint();
+            System.out.println(ingredientList.size() + " a");
+        }
+    }
+    
     
     
 }

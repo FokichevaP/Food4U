@@ -60,7 +60,7 @@ public class Ingredient {
         ingredientNameTextField.addActionListener(new NameListener());
         deleteButton.addActionListener(new DeleteButtonListener());
         
-        //AddIngredientsClass.IngredientList.add(this);
+        FirstPanelClass.ingredientList.add(this);
     }
     
     class NameListener implements ActionListener
@@ -77,11 +77,13 @@ public class Ingredient {
             @Override
             public void actionPerformed(ActionEvent event)
             {
-                AddIngredientsClass.IngredientList.remove(self);
-                AddIngredientsClass.AddIngredientsOuterPanel.remove(ingredientPanel);
+                FirstPanelClass.ingredientList.remove(self);
+                FirstPanelClass.ingrPanTop.remove(ingredientPanel);
                 
-                AddIngredientsClass.Window.repaint();
-                AddIngredientsClass.Window.setVisible(true);
+                FirstPanelClass.ingrPanTop.revalidate();
+                FirstPanelClass.ingrPanTop.repaint();
+                FirstPanelClass.ingrPan.setVisible(true);
+                System.out.println(FirstPanelClass.ingredientList.size());
             }
         }
     
