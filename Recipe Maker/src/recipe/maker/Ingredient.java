@@ -1,5 +1,6 @@
 package recipe.maker;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,8 @@ public class Ingredient {
     public JPanel ingredientPanel;
     private Ingredient self;
     
+    public static Color DarkOrange = new Color(244, 152, 66);
+    
     //Layout initialisation
     JTextField ingredientNameTextField;
     
@@ -24,6 +27,7 @@ public class Ingredient {
         //Ingredient panel
         ingredientPanel = new JPanel();
         ingredientPanel.setPreferredSize(new Dimension(800, 40));
+        //ingredientPanel.setBackground(new Color(0, 0, 200));
         //GridLayout GridLayout = new GridLayout(1,1);
         //IngredientPanel.setLayout(GridLayout);
         TargetJP.add(ingredientPanel);
@@ -48,7 +52,7 @@ public class Ingredient {
         
         //Delete Button
         JButton deleteButton = new JButton("X");
-        deleteButton.setBackground(AddIngredientsClass.DarkOrange);
+        deleteButton.setBackground(DarkOrange);
         deleteButton.setPreferredSize(new Dimension(50, 30));
         ingredientPanel.add(deleteButton);
         
@@ -56,7 +60,7 @@ public class Ingredient {
         ingredientNameTextField.addActionListener(new NameListener());
         deleteButton.addActionListener(new DeleteButtonListener());
         
-        AddIngredientsClass.IngredientList.add(this);
+        //AddIngredientsClass.IngredientList.add(this);
     }
     
     class NameListener implements ActionListener

@@ -73,6 +73,8 @@ public class AddIngredientsClass extends JFrame{
         
         //Adding ingredient (only one for the final version)
         ingredient = new Ingredient(AddIngredientsOuterPanel);
+        ingredient = new Ingredient(AddIngredientsOuterPanel);
+        ingredient = new Ingredient(AddIngredientsOuterPanel);
         
         //Adding Add button
         AddButton = new JButton("+");
@@ -133,7 +135,7 @@ public class AddIngredientsClass extends JFrame{
         menuBar.add(helpMenu);
         Window.add(menuBar, BorderLayout.NORTH);
         */
-        Window.pack();
+        //Window.pack();
         //Make window visible
         Window.setVisible(true);
     }
