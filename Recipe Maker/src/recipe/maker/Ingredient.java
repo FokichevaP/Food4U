@@ -7,10 +7,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Ingredient {
+public class Ingredient extends JPanel{
     
     private boolean required;
     private String ingredientName = "";
@@ -22,15 +23,13 @@ public class Ingredient {
     //Layout initialisation
     JTextField ingredientNameTextField;
     
-    Ingredient(JPanel TargetJP){
+    Ingredient(){
         self=this;
         //Ingredient panel
         ingredientPanel = new JPanel();
+        add(ingredientPanel);
         ingredientPanel.setPreferredSize(new Dimension(800, 40));
-        //ingredientPanel.setBackground(new Color(0, 0, 200));
-        //GridLayout GridLayout = new GridLayout(1,1);
-        //IngredientPanel.setLayout(GridLayout);
-        TargetJP.add(ingredientPanel);
+        //TargetJP.add(ingredientPanel);
         
         //Ingredient Name
         ingredientNameTextField = new JTextField();
@@ -39,16 +38,16 @@ public class Ingredient {
         ingredientPanel.add(ingredientNameTextField);
         
         //Required Panel
-        JPanel RequiredPanel = new JPanel();
-        ingredientPanel.add(RequiredPanel);
+        JPanel requiredPanel = new JPanel();
+        ingredientPanel.add(requiredPanel);
         
         //Ingredient RequiredText
         JLabel JRequiredText = new JLabel("Required: ");
-        RequiredPanel.add(JRequiredText);
+        requiredPanel.add(JRequiredText);
         
         //Ingredient RequiredRadioButton
         JCheckBox JRequiredTextBox = new JCheckBox();
-        RequiredPanel.add(JRequiredTextBox);
+        requiredPanel.add(JRequiredTextBox);
         
         //Delete Button
         JButton deleteButton = new JButton("X");
@@ -60,7 +59,7 @@ public class Ingredient {
         ingredientNameTextField.addActionListener(new NameListener());
         deleteButton.addActionListener(new DeleteButtonListener());
         
-        FirstPanelClass.ingredientList.add(this);
+        //IngredientPanelClass.ingredientList.add(this);
     }
     
     class NameListener implements ActionListener
@@ -77,13 +76,17 @@ public class Ingredient {
             @Override
             public void actionPerformed(ActionEvent event)
             {
-                FirstPanelClass.ingredientList.remove(self);
-                FirstPanelClass.ingrPanTop.remove(ingredientPanel);
                 
-                FirstPanelClass.ingrPanTop.revalidate();
-                FirstPanelClass.ingrPanTop.repaint();
-                FirstPanelClass.ingrPan.setVisible(true);
-                System.out.println(FirstPanelClass.ingredientList.size());
+                if(IngredientPanelClass.ingredientList.size()>3){
+                    IngredientPanelClass.ingredientList.remove(self);
+                    IngredientPanelClass.displayAll();
+                    System.out.println(IngredientPanelClass.ingredientList.size() + " del");
+                }
+                else{
+                showMessageDialog(null, "Minimum of 3 ingredients required.");
+                }
+                
+                
             }
         }
     

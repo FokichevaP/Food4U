@@ -7,7 +7,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 
-public class RecipeMaker extends JFrame{
+public class Food4U extends JFrame{
     
     // Dimension variables
     private final int SUM_WIDTH = 1600;
@@ -23,18 +23,13 @@ public class RecipeMaker extends JFrame{
     private final CardsPanel cards;
     
     
-    public RecipeMaker(){
+    public Food4U(){
         setTitle("Food4U");
         setLayout(new BorderLayout());
         // Change later to fill whole screen
         // JPanels
         cards = new CardsPanel();
         add(cards);
-        
-        
-        
-        
-        
         
         // Display JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +47,7 @@ public class RecipeMaker extends JFrame{
 
     public static void main(String[] args) {
         // Instance of constructor class
-        RecipeMaker rpmaker = new RecipeMaker();
+        Food4U rpmaker = new Food4U();
     }
     
 }
