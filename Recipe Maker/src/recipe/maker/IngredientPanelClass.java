@@ -17,12 +17,12 @@ public class IngredientPanelClass extends JPanel{
     
     // Ingredent Linked List
     public static LinkedList<Ingredient> ingredientList = new LinkedList<>();
-    //Ingredient ingredient;
+    // Recipe Linked List
+    public static LinkedList<Recipe> recipeList = new LinkedList<>();
     
     // Dimension variables
     private final int SUM_WIDTH = 1600;
     private final int SUM_HEIGHT = 900;
-    // 2st panel
     private final int NAME_PANEL_HEIGHT = SUM_HEIGHT/19;
     private final int MAIN_PANEL_HEIGHT = SUM_HEIGHT*9/10;
     private final int INGR_PANEL_WIDTH = SUM_WIDTH*2/10;
@@ -30,21 +30,23 @@ public class IngredientPanelClass extends JPanel{
     
     // Colours
     public static Color DarkGrey = new Color(99,99,99);
+    public static Color MediumGrey = new Color(150,150,150);
     public static Color LightGrey = new Color(200,200,200);
     public static Color DarkOrange = new Color(244, 152, 66);
     public static Color LightOrange = new Color(252, 220, 159);
     
     // Swing variables
-    private final JPanel namePan, ingrPanBot, recPan;
-    public static JPanel ingrPan, ingrPanTop;
+    private final CardsPanel c;
+    private final JPanel ingrNamePanel, ingrPanelBot, recNamePanel;
+    public static JPanel ingrPanel, ingrPanelTop, recPanel, recHoldPanel;
     private final JButton resetButton, submitButton, settingsButton;
     public static JButton addButton;
-    private final JLabel ingrLabel;
-    private final CardsPanel c;
+    private final JLabel ingrNameLabel, recNameLabel;
+    
     
     
     public IngredientPanelClass(CardsPanel cl){
-        // This lets us change cards
+        // This lets us change between panels
         c = cl;
         setLayout(new BorderLayout());
         
@@ -53,47 +55,49 @@ public class IngredientPanelClass extends JPanel{
         //
         
         // Ingredient Main Panel
-        ingrPan = new JPanel();
-            ingrPan.setLayout(new BorderLayout());
-            ingrPan.setBackground(LightGrey);
-            ingrPan.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
-        add(ingrPan, BorderLayout.WEST);  
+        ingrPanel = new JPanel();
+            ingrPanel.setLayout(new BorderLayout());
+            ingrPanel.setBackground(MediumGrey);
+            ingrPanel.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
+        add(ingrPanel, BorderLayout.WEST);  
         
         // Name Panel
-        namePan = new JPanel();
-            namePan.setBackground(DarkGrey);
-            namePan.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, NAME_PANEL_HEIGHT));
-        ingrPan.add(namePan, BorderLayout.PAGE_START);  
+        ingrNamePanel = new JPanel();
+            //ingrNamePan.setBackground(DarkGrey);
+            ingrNamePanel.setOpaque(false);
+            ingrNamePanel.setPreferredSize(new Dimension(INGR_PANEL_WIDTH, NAME_PANEL_HEIGHT));
+        ingrPanel.add(ingrNamePanel, BorderLayout.PAGE_START);  
         // Name Label
-        ingrLabel = new JLabel();
-            ingrLabel.setText("Ingredients");
-            ingrLabel.setFont(new Font("Sans Serif", Font.PLAIN, 30));
-        namePan.add(ingrLabel, BorderLayout.CENTER);
+        ingrNameLabel = new JLabel();
+            ingrNameLabel.setText("Ingredients");
+            ingrNameLabel.setFont(new Font("Sans Serif", Font.BOLD, 30));
+            ingrNameLabel.setForeground(Color.white);
+        ingrNamePanel.add(ingrNameLabel, BorderLayout.CENTER);
         
 
         // Top Panel
-        ingrPanTop = new JPanel();
-            ingrPanTop.setOpaque(false);
-            ingrPanTop.setPreferredSize(new Dimension(300, SUM_HEIGHT*15/20));
-        ingrPan.add(ingrPanTop, BorderLayout.CENTER);
-        // Initialise addButton here so I can remove/add it in displayAll method:
+        ingrPanelTop = new JPanel();
+            ingrPanelTop.setOpaque(false);
+            ingrPanelTop.setPreferredSize(new Dimension(300, SUM_HEIGHT*15/20));
+        ingrPanel.add(ingrPanelTop, BorderLayout.CENTER);
+        // Initialise addButton here so I can remove/add it in displayAllIngredients method:
         addButton = new JButton("+");
         // Ingredients
         ingredientList.add(new Ingredient());
         ingredientList.add(new Ingredient());
         ingredientList.add(new Ingredient());
-        displayAll();
+        displayAllIngredients();
         //Add button
             addButton.setBackground(DarkOrange);
             addButton.setPreferredSize(new Dimension(50, 50));
             addButton.addActionListener(new addButtonListener());
-        ingrPanTop.add(addButton);
+        ingrPanelTop.add(addButton);
         
         // Bottom Panel
-        ingrPanBot = new JPanel();
-            ingrPanBot.setPreferredSize(new Dimension(300, SUM_HEIGHT*3/20));
-            ingrPanBot.setOpaque(false);
-        ingrPan.add(ingrPanBot, BorderLayout.SOUTH);
+        ingrPanelBot = new JPanel();
+            ingrPanelBot.setPreferredSize(new Dimension(300, SUM_HEIGHT*3/20));
+            ingrPanelBot.setOpaque(false);
+        ingrPanel.add(ingrPanelBot, BorderLayout.SOUTH);
         //Reset button
         resetButton = new JButton("Reset");
             resetButton.setBackground(DarkGrey);
@@ -109,12 +113,13 @@ public class IngredientPanelClass extends JPanel{
             ingrPanButtons.setOpaque(false);
             ingrPanButtons.add(resetButton);
             ingrPanButtons.add(submitButton);
-        ingrPanBot.add(ingrPanButtons);
+        ingrPanelBot.add(ingrPanButtons);
         //Settings button
         settingsButton = new JButton("Settings");
             settingsButton.setBackground(LightOrange);
             settingsButton.setPreferredSize(new Dimension(200, 50));
-        ingrPanBot.add(settingsButton);
+            //settingsButton.addActionListener(new switchCards());
+        ingrPanelBot.add(settingsButton);
         
         // ***INGREDIENT PANEL OVER***
         
@@ -124,34 +129,80 @@ public class IngredientPanelClass extends JPanel{
         //
         
         // Recipe Main Panel
-        recPan = new JPanel(new BorderLayout());
-            recPan.setBorder(new TitledBorder(new EtchedBorder(), "Recipes Panel"));
-            recPan.setPreferredSize(new Dimension(REC_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
-        add(recPan, BorderLayout.CENTER);  
+        recPanel = new JPanel();
+            //recPan.setBorder(new TitledBorder(new EtchedBorder(), "Recipes Panel"));
+            recPanel.setBackground(LightGrey);
+            recPanel.setPreferredSize(new Dimension(REC_PANEL_WIDTH, MAIN_PANEL_HEIGHT));
+        add(recPanel, BorderLayout.CENTER);
+        
+        // Name Panel
+        recNamePanel = new JPanel();
+            //recNamePan.setBackground(DarkGrey);
+            recNamePanel.setOpaque(false);
+            recNamePanel.setPreferredSize(new Dimension(REC_PANEL_WIDTH, NAME_PANEL_HEIGHT+10));
+        recPanel.add(recNamePanel);  
+        // Name Label
+        recNameLabel = new JLabel();
+            recNameLabel.setText("Recipes");
+            recNameLabel.setFont(new Font("Sans Serif", Font.BOLD, 40));
+        recNamePanel.add(recNameLabel, BorderLayout.CENTER);
+        
+        // Panel to hold Recipes
+        recHoldPanel = new JPanel();
+            recHoldPanel.setOpaque(false);
+            recHoldPanel.setPreferredSize(new Dimension(REC_PANEL_WIDTH, (MAIN_PANEL_HEIGHT-NAME_PANEL_HEIGHT)));
+        recPanel.add(recHoldPanel);
+        // Recipes
+        //testing
+        
+        
+        
+        
+        
         
         // ***RECIPE PANEL OVER***
         
         
     }
     
-    /*
+    // for testing purposes
     class switchCards implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
             CardLayout cl = (CardLayout)(c.getLayout());
-              cl.show(c, "firstPanel");
+            cl.show(c, "recipePanel");
         }
     }
-    */
     
-    public static void displayAll(){
-        ingrPanTop.removeAll();
+    public static void displayAllIngredients(){
+        ingrPanelTop.removeAll();
         for (Ingredient ingr : ingredientList){
-            ingrPanTop.add(ingr);
+            ingrPanelTop.add(ingr);
         }
-        ingrPanTop.add(addButton);
-        ingrPanTop.revalidate();
-        ingrPanTop.repaint();
+        ingrPanelTop.add(addButton);
+        ingrPanelTop.revalidate();
+        ingrPanelTop.repaint();
+    }
+    
+    public void displayAllRecipes(){
+        recHoldPanel.removeAll();
+        recHoldPanel.setOpaque(false);
+        recHoldPanel.setPreferredSize(new Dimension(REC_PANEL_WIDTH, (MAIN_PANEL_HEIGHT-NAME_PANEL_HEIGHT)));
+        if (recipeList.isEmpty()){
+            JLabel emptyRecList = new JLabel("Please select ingredients and press Submit.");
+                emptyRecList.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+            recHoldPanel.add(emptyRecList, BorderLayout.PAGE_START);
+            System.out.println(recipeList.size());
+        }
+        else{
+            for (Recipe rec : recipeList){
+                RecipeSmallPanel rsp = new RecipeSmallPanel(c, rec);
+                recHoldPanel.add(rsp);
+            }
+            System.out.println(recipeList.size());
+        }
+        recPanel.revalidate();
+        recPanel.repaint();
     }
     
     class addButtonListener implements ActionListener{
@@ -160,7 +211,7 @@ public class IngredientPanelClass extends JPanel{
             if(ingredientList.size()<10){
                 ingredientList.add(new Ingredient());
                 System.out.println(ingredientList.size() + " add");
-                displayAll();
+                displayAllIngredients();
             }
             else{
                 showMessageDialog(null, "Maximum number of ingredients has been reached.");
@@ -171,18 +222,25 @@ public class IngredientPanelClass extends JPanel{
     class submitButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            System.out.println(ingredientList.size() + " total");
+            recipeList.add(new Recipe());
+            recipeList.add(new Recipe());
+            recipeList.add(new Recipe());
+            displayAllRecipes();
         }
     }
     
     class resetButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
+            // Ingredients reset
             ingredientList.clear();
             ingredientList.add(new Ingredient());
             ingredientList.add(new Ingredient());
             ingredientList.add(new Ingredient());
-            displayAll();
+            displayAllIngredients();
+            // Recipes reset
+            recipeList.clear();
+            displayAllRecipes();
         }
     }
     

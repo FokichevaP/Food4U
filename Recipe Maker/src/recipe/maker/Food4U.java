@@ -8,15 +8,7 @@ import javax.swing.border.TitledBorder;
 
 
 public class Food4U extends JFrame{
-    
-    // Dimension variables
-    private final int SUM_WIDTH = 1600;
-    private final int SUM_HEIGHT = 900;
-    // 1st panel
-    private final int NAME_PANEL_HEIGHT = SUM_HEIGHT/10;
-    private final int MAIN_PANEL_HEIGHT = SUM_HEIGHT*9/10;
-    
-    //2nd panel
+    // Which recipe size
     
     
     // Swing variables

@@ -25,10 +25,11 @@ public class Ingredient extends JPanel{
     
     Ingredient(){
         self=this;
+        
         //Ingredient panel
         ingredientPanel = new JPanel();
+            ingredientPanel.setPreferredSize(new Dimension(800, 40));
         add(ingredientPanel);
-        ingredientPanel.setPreferredSize(new Dimension(800, 40));
         //TargetJP.add(ingredientPanel);
         
         //Ingredient Name
@@ -79,7 +80,7 @@ public class Ingredient extends JPanel{
                 
                 if(IngredientPanelClass.ingredientList.size()>3){
                     IngredientPanelClass.ingredientList.remove(self);
-                    IngredientPanelClass.displayAll();
+                    IngredientPanelClass.displayAllIngredients();
                     System.out.println(IngredientPanelClass.ingredientList.size() + " del");
                 }
                 else{
