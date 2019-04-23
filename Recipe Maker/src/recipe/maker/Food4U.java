@@ -8,8 +8,10 @@ import javax.swing.border.TitledBorder;
 
 
 public class Food4U extends JFrame{
-    // Which recipe size
     
+    // Sizes
+    private final int SUM_WIDTH = 1600;
+    private final int SUM_HEIGHT = 900;
     
     // Swing variables
     private final CardsPanel cards;
@@ -18,6 +20,8 @@ public class Food4U extends JFrame{
     public Food4U(){
         setTitle("Food4U");
         setLayout(new BorderLayout());
+        setMaximumSize(new Dimension(SUM_WIDTH, SUM_HEIGHT));
+        setResizable(false);
         // Change later to fill whole screen
         // JPanels
         cards = new CardsPanel();

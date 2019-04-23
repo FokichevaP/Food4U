@@ -17,7 +17,6 @@ public class RecipeSmallPanel extends JPanel{
     private final int INDV_REC_PANEL_WIDTH = REC_PANEL_WIDTH*9/10;
     private final int INDV_REC_PANEL_HEIGHT = SUM_HEIGHT/5;
      
-    
     // Colours
     public static Color DarkGrey = new Color(99,99,99);
     public static Color MediumGrey = new Color(150,150,150);
@@ -25,20 +24,25 @@ public class RecipeSmallPanel extends JPanel{
     public static Color DarkOrange = new Color(244, 152, 66);
     public static Color LightOrange = new Color(252, 220, 159);
     
-    // Swing Variables
-    private CardsPanel c;
-    private JPanel recPanel, photoPanel;
-    private JLabel titleLabel, cookTimeLabel, servingsLabel; //, ingredientSizeLabel;
-    private JTextArea instructionsField;
-    
+    // Recipe variables
+    Recipe thisRecipe;
     String RecipeTitle;
     String RecipeInstructions;
     int RecipeCookTime;
     int RecipeServings;
     int RecipeIngredientListSize;
     
+    // Swing Variables
+    private CardsPanel c;
+    private JPanel recPanel, photoPanel;
+    private JLabel titleLabel, cookTimeLabel, servingsLabel; //, ingredientSizeLabel;
+    private JTextArea instructionsArea;
+    
+    
+    
     public RecipeSmallPanel(CardsPanel cl, Recipe recipe){
         c = cl;
+        thisRecipe = recipe;
         setPreferredSize(new Dimension(INDV_REC_PANEL_WIDTH, INDV_REC_PANEL_HEIGHT*4/3));
         setOpaque(false);
         // Get relevant recipe info
@@ -53,6 +57,7 @@ public class RecipeSmallPanel extends JPanel{
             recPanel.setPreferredSize(new Dimension(INDV_REC_PANEL_WIDTH, INDV_REC_PANEL_HEIGHT));
             //recPan.setBackground(DarkOrange);
             //recPan.setOpaque(false);
+            // Add listener so that when panel is clicked, goes to the full recipe page
             recPanel.addMouseListener(new clickRecipeListener());
         add(recPanel);
         
@@ -79,12 +84,12 @@ public class RecipeSmallPanel extends JPanel{
         else{
             instructionsString = RecipeInstructions.substring(0, 810) + "...";
         }
-        instructionsField = new JTextArea(instructionsString, 10, 1);
-            instructionsField.setLineWrap(true);
-            instructionsField.setWrapStyleWord(true);
-            instructionsField.setOpaque(false);
-            instructionsField.setEditable(false);
-        infoPanel.add(instructionsField, BorderLayout.CENTER);
+        instructionsArea = new JTextArea(instructionsString, 10, 1);
+            instructionsArea.setLineWrap(true);
+            instructionsArea.setWrapStyleWord(true);
+            instructionsArea.setOpaque(false);
+            instructionsArea.setEditable(false);
+        infoPanel.add(instructionsArea, BorderLayout.CENTER);
         
         // Bottom parameter holder panel
         JPanel paramPanel = new JPanel();
@@ -103,21 +108,22 @@ public class RecipeSmallPanel extends JPanel{
     
     class clickRecipeListener implements MouseListener{
         @Override
-        public void mouseClicked(MouseEvent e){
-            CardLayout cl = (CardLayout)(c.getLayout());
-            cl.show(c, "recipePanel");
+            public void mouseClicked(MouseEvent e){
+                IngredientPanelClass.currentRecipe = thisRecipe;
+                CardLayout cl = (CardLayout)(c.getLayout());
+                cl.show(c, "recipePanel");
+            }
+            public void mouseEntered(MouseEvent e){
+
+            }
+            public void mousePressed(MouseEvent e){
+
+            }
+            public void mouseReleased(MouseEvent e){
+
+            }
+            public void mouseExited(MouseEvent e){
+
+            }
         }
-        public void mouseEntered(MouseEvent e){
-            
-        }
-        public void mousePressed(MouseEvent e){
-            
-        }
-        public void mouseReleased(MouseEvent e){
-            
-        }
-        public void mouseExited(MouseEvent e){
-            
-        }
-    }
 }

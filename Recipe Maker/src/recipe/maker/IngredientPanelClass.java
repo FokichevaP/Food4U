@@ -19,6 +19,8 @@ public class IngredientPanelClass extends JPanel{
     public static LinkedList<Ingredient> ingredientList = new LinkedList<>();
     // Recipe Linked List
     public static LinkedList<Recipe> recipeList = new LinkedList<>();
+    // Curently selected recipe
+    public static Recipe currentRecipe = new Recipe();
     
     // Dimension variables
     private final int SUM_WIDTH = 1600;
