@@ -155,6 +155,7 @@ public class IngredientPanelClass extends JPanel{
             recHoldPanel.setPreferredSize(new Dimension(REC_PANEL_WIDTH, (MAIN_PANEL_HEIGHT-NAME_PANEL_HEIGHT)));
         recPanel.add(recHoldPanel);
         // Recipes
+        displayAllRecipes();
         //testing
         
         

@@ -17,7 +17,7 @@ public class CardsPanel extends JPanel{
         
         // Ingredients Panel
         IngredientPanelClass ingrPan = new IngredientPanelClass(this);
-        //add(ingrPan, "ingredientsPanel");
+        add(ingrPan, "ingredientsPanel");
         
         // Recipe Panel
         RecipeLargePanel recPan = new RecipeLargePanel(this);

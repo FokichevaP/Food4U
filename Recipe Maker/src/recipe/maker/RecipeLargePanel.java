@@ -2,6 +2,8 @@ package recipe.maker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.json.JSONArray;
 
 public class RecipeLargePanel extends JPanel{
@@ -37,10 +39,12 @@ public class RecipeLargePanel extends JPanel{
     private CardsPanel c;
     private JScrollPane recipeScrollPanel;
     private JPanel recipePanel, photoPanel, titlePanel, infoPanel, ingredientsPanel, instructionsPanel;
-    private JLabel titleLabel, cooktimeAndServingsLabel;
+    private JLabel titleLabel, cooktimeAndServingsLabel, ingredientsLabel;
     private JTextArea instructionsArea;
+    private JButton backButton;
     
     public RecipeLargePanel(CardsPanel cl){
+        c = cl;
         initialiseCurrentRecipe();
         setLayout(new BorderLayout());
         //setMaximumSize(new Dimension(SUM_WIDTH, SUM_HEIGHT));
@@ -66,6 +70,11 @@ public class RecipeLargePanel extends JPanel{
             borderEast.setBackground(LightGrey);
         holderPanel.add(borderWest, BorderLayout.WEST);
         holderPanel.add(borderEast, BorderLayout.EAST);
+        
+        // Back Button
+        backButton = new JButton("Back");
+            backButton.addActionListener(new backListener());
+        borderWest.add(backButton);
             
         // Scroll panel
         recipeScrollPanel = new JScrollPane(holderPanel);
@@ -105,10 +114,14 @@ public class RecipeLargePanel extends JPanel{
         // Ingredients
         // panel
         ingredientsPanel = new JPanel();
+            ingredientsPanel.setBackground(LightOrange);
+        recipePanel.add(ingredientsPanel);
+        // label
+        ingredientsLabel = new JLabel("Ingredients:");
+            ingredientsLabel.setFont(new Font("Sans Serif", Font.BOLD, 15));
+        ingredientsPanel.add(ingredientsLabel);
         // list
-        
-        
-        
+        // TO DO once JSONArray makes sense 
         
         // Instructions
         // panel
@@ -124,16 +137,6 @@ public class RecipeLargePanel extends JPanel{
             instructionsArea.setEditable(false);
         instructionsPanel.add(instructionsArea, BorderLayout.CENTER);
         
-        
-            
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     public void initialiseCurrentRecipe(){
@@ -146,6 +149,14 @@ public class RecipeLargePanel extends JPanel{
         RecipeInstructions = recipe.getInstructions();
         RecipeCreditText = recipe.getCreditText();
         RecipeSourceURL = recipe.getSourceURL();
+    }
+    
+    class backListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            CardLayout cl = (CardLayout)(c.getLayout());
+            cl.show(c, "ingredientsPanel");
+        }
     }
 
 }
