@@ -25,15 +25,15 @@ public class RecipeLargePanel extends JPanel{
     public static Color LightOrange = new Color(252, 220, 159);
     
      // Recipe Variables
-    private String RecipeTitle;
-    private int RecipeCookTime;
-    private int RecipeServings;
-    private JSONArray RecipeIngredients;
-    private String nameAndAmountofIngredient;
-    private String RecipeInstructions;
-    private String RecipeCreditText;
-    private String RecipeSourceURL;
-    private Recipe recipe;
+    private static String RecipeTitle;
+    private static int RecipeCookTime;
+    private static int RecipeServings;
+    private static JSONArray RecipeIngredients;
+    private static String nameAndAmountofIngredient;
+    private static String RecipeInstructions;
+    private static String RecipeCreditText;
+    private static String RecipeSourceURL;
+    private static Recipe recipe;
     
     // Swing Variables
     private CardsPanel c;
@@ -46,6 +46,24 @@ public class RecipeLargePanel extends JPanel{
     public RecipeLargePanel(CardsPanel cl){
         c = cl;
         initialiseCurrentRecipe();
+        drawGUI();
+        
+    }
+    
+    public static void initialiseCurrentRecipe(){
+        recipe = IngredientPanelClass.currentRecipe;
+        RecipeTitle = recipe.getTitle();
+        RecipeCookTime = recipe.getCookTime();
+        RecipeServings = recipe.getServings();
+        //RecipeIngredients = recipe.getJSONArray();
+        nameAndAmountofIngredient = recipe.getNameAndAmmountofIngredient();
+        RecipeInstructions = recipe.getInstructions();
+        RecipeCreditText = recipe.getCreditText();
+        RecipeSourceURL = recipe.getSourceURL();
+    }
+    
+    public void drawGUI(){
+        removeAll();
         setLayout(new BorderLayout());
         //setMaximumSize(new Dimension(SUM_WIDTH, SUM_HEIGHT));
         //SUM_HEIGHT = this.getHeight();
@@ -139,16 +157,10 @@ public class RecipeLargePanel extends JPanel{
         
     }
     
-    public void initialiseCurrentRecipe(){
-        recipe = IngredientPanelClass.currentRecipe;
-        RecipeTitle = recipe.getTitle();
-        RecipeCookTime = recipe.getCookTime();
-        RecipeServings = recipe.getServings();
-        //RecipeIngredients = recipe.getJSONArray();
-        nameAndAmountofIngredient = recipe.getNameAndAmmountofIngredient();
-        RecipeInstructions = recipe.getInstructions();
-        RecipeCreditText = recipe.getCreditText();
-        RecipeSourceURL = recipe.getSourceURL();
+    //KYLE
+    public void resetPage(){
+        revalidate();
+        repaint();
     }
     
     class backListener implements ActionListener{

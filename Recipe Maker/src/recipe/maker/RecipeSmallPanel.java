@@ -110,6 +110,11 @@ public class RecipeSmallPanel extends JPanel{
         @Override
             public void mouseClicked(MouseEvent e){
                 IngredientPanelClass.currentRecipe = thisRecipe;
+                //KYLE
+                CardsPanel.recPan.initialiseCurrentRecipe();
+                CardsPanel.recPan.drawGUI();
+                CardsPanel.recPan.revalidate();
+                CardsPanel.recPan.repaint();
                 CardLayout cl = (CardLayout)(c.getLayout());
                 cl.show(c, "recipePanel");
             }

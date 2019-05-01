@@ -20,7 +20,7 @@ public class IngredientPanelClass extends JPanel{
     // Recipe Linked List
     public static LinkedList<Recipe> recipeList = new LinkedList<>();
     // Curently selected recipe
-    public static Recipe currentRecipe = new Recipe();
+    public static Recipe currentRecipe = new Recipe("init");
     
     // Dimension variables
     private final int SUM_WIDTH = 1600;
@@ -225,9 +225,9 @@ public class IngredientPanelClass extends JPanel{
     class submitButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            recipeList.add(new Recipe());
-            recipeList.add(new Recipe());
-            recipeList.add(new Recipe());
+            recipeList.add(new Recipe("test"));
+            recipeList.add(new Recipe("chicken"));
+            recipeList.add(new Recipe("hello"));
             displayAllRecipes();
         }
     }

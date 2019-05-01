@@ -21,11 +21,11 @@ public class Recipe{
     private String RecipeSourceURL;
     private Recipe self;
     
-    public Recipe(){
+    public Recipe(String name){
         self=this;
         
         //testing
-        RecipeTitle = "Chicken";
+        RecipeTitle = name;
         RecipeInstructions = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales. Lectus sit amet est placerat in egestas erat. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu. Dolor sed viverra ipsum nunc aliquet bibendum. Egestas maecenas pharetra convallis posuere morbi leo urna molestie. At risus viverra adipiscing at in tellus. Amet risus nullam eget felis eget nunc lobortis mattis. Aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis. Odio facilisis mauris sit amet massa vitae tortor condimentum lacinia. Cum sociis natoque penatibus et magnis dis. Pellentesque habitant morbi tristique senectus et. Nec sagittis aliquam malesuada bibendum arcu. Suspendisse in est ante in nibh mauris. Leo duis ut diam quam nulla porttitor. Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada. Quam quisque id diam vel quam elementum pulvinar etiam non. Nunc pulvinar sapien et ligula ullamcorper.\n" +
         "\n" +
         "Nisi scelerisque eu ultrices vitae. Dui nunc mattis enim ut tellus elementum sagittis. Fringilla ut morbi tincidunt augue interdum velit. Diam quis enim lobortis scelerisque fermentum. Tincidunt dui ut ornare lectus sit. Magna ac placerat vestibulum lectus mauris ultrices eros in cursus. Augue lacus viverra vitae congue eu consequat ac felis. Tellus orci ac auctor augue mauris. Magnis dis parturient montes nascetur ridiculus. Venenatis urna cursus eget nunc scelerisque viverra. Et ultrices neque ornare aenean euismod elementum nisi quis eleifend.\n" +
